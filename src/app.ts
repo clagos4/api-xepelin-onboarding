@@ -1,18 +1,29 @@
 import express from 'express'
-import routes from './routes';
+import * as dotenv from 'dotenv';
+import morgan from 'morgan';
+import routes from './routes'; 
 
+// Initiate api
 const app = express()
-
 app.use(express.json())
 
+// Console log library
+app.use(morgan('dev'));
+
+// Initiate .env
+dotenv.config();
+
+// Set routes
 app.use('/', routes);
 
-app.use((req, res, next) => {
+
+// Error handling
+app.use((req, res) => {
     res.status(404);
     return res.json({message: `Endpoint not found for path: ${req.path}`});
   });
 
-// #6
-app.listen(3000, () =>
-  console.log('REST API server ready at: http://localhost:3000'),
+// listen server
+app.listen(3200, () =>
+  console.log('REST API server ready at: http://localhost:3200'),
 )
