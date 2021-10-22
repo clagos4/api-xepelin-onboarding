@@ -31,7 +31,7 @@ model BankClient {
 
 model Bank {
   id      Int          @id @default(autoincrement())
-  bank_id Int
+  bank_id Int          @unique
   clients BankClient[]
 }
 
