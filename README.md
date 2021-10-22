@@ -62,7 +62,3 @@ sudo docker-compose up -d
 ```
 
 Si hay problemas con el puerto 5432, correr ```sudo kill -9 `sudo lsof -t -i:5432```
-
-## Preguntas
-* url de llamado https debe ser el mismo de las instrucciones?
-* 

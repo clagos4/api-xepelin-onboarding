@@ -11,25 +11,48 @@ generator client {
 }
 
 model Client {
-  id String @id @db.Uuid @default(dbgenerated())
-  name String @unique
+  id            String       @id @default(dbgenerated()) @db.Uuid
+  name          String       @unique
   internal_code Int
-  tax_id Int
-  currency String
+  tax_id        Int
+  currency_id   Int
+  currency      Currency     @relation(fields: [currency_id], references: [id])
   max_api_calls Int
-  banks BankClient[]
+  banks         BankClient[]
 }
 
 model BankClient {
-  id Int @id @default(autoincrement())
+  id        Int    @id @default(autoincrement())
   client_id String @db.Uuid
-  bank_id Int
-  client Client @relation(fields: [client_id], references: [id])
-  bank Bank @relation(fields: [bank_id], references: [id])
+  bank_id   Int
+  client    Client @relation(fields: [client_id], references: [id])
+  bank      Bank   @relation(fields: [bank_id], references: [id])
 }
 
 model Bank {
-  id Int @id @default(autoincrement())
+  id      Int          @id @default(autoincrement())
   bank_id Int
   clients BankClient[]
+}
+
+model Invoice {
+  invoice_id       Int       @id @unique
+  vendor_id        Int
+  invoice_number   String    @db.VarChar(50)
+  invoice_date     DateTime  @db.Date
+  invoice_total    Float
+  payment_total    Float
+  credit_total     Float
+  bank_id          Int
+  invoice_due_date DateTime  @db.Date
+  payment_date     DateTime? @db.Date
+  currency_id      Int
+  currency         Currency  @relation(fields: [currency_id], references: [id])
+}
+
+model Currency {
+  id      Int       @id @default(autoincrement())
+  name    String    @unique @db.VarChar(5)
+  Invoice Invoice[]
+  Client  Client[]
 }

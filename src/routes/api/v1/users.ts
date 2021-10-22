@@ -12,17 +12,23 @@ router.get('/', async (req, res) => {
     res.status(200).send({message: JSON.stringify(users)});
 })
 
-router.post('/register', async (req, res) => {
+router.post('/create', async (req, res) => {
     const uuid = uuidv4();
-    if (req.body.currency in ['CLP', 'USD', 'EUR']) {
-        res.status(400).send({message: 'Currency must be CLP, USD or EUR.'})
+    const currency = await prisma.currency.findMany({
+        where: { id: req.body.currency_id}
+    })
+
+    if (currency.length == 0) {
+        res.status(400).send({message: "Currency inserted is not registered"});
+        return;
     }
+
     const user = await prisma.client.create({
         data: {
             name: req.body.name,
             internal_code: parseInt(req.body.internal_code),
             tax_id: parseInt(req.body.tax_id),
-            currency: req.body.currency,
+            currency_id: parseInt(req.body.currency_id),
             max_api_calls: parseInt(req.body.max_api_calls),
             id: uuid
         },
@@ -50,7 +56,6 @@ router.patch('/:id', async (req, res, next) => {
     //var editables = ['tax_id', 'currency'];
     if (req.body.tax_id !== null) {data["tax_id"] = req.body.tax_id}
     if (req.body.currency !== null) {data["currency"] = req.body.currency}
-    console.log(data)
     var client = await prisma.client.update({where: {id: String(id)}, data: data})
     if (!client) {return res.status(500).send({message: 'Error in update client method.'});}
     res.status(204).send({message: 'Client updated succesfully!'})

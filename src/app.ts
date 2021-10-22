@@ -1,7 +1,8 @@
+import dotenv from 'dotenv';
 import express from 'express'
-import * as dotenv from 'dotenv';
 import morgan from 'morgan';
 import routes from './routes'; 
+import { timers } from "./timers";
 
 // Initiate api
 const app = express()
@@ -12,6 +13,9 @@ app.use(morgan('dev'));
 
 // Initiate .env
 dotenv.config();
+
+// Set Timers
+//timers();
 
 // Set routes
 app.use('/', routes);
