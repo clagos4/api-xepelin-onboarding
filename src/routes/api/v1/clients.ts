@@ -55,7 +55,18 @@ router.patch('/:id', async (req, res, next) => {
     var data: { [name: string]: Number | String } = {};
     //var editables = ['tax_id', 'currency'];
     if (req.body.tax_id !== null) {data["tax_id"] = req.body.tax_id}
-    if (req.body.currency !== null) {data["currency"] = req.body.currency}
+    if (req.body.currency !== null) {
+        const currency = await prisma.currency.findUnique({
+            where: { name: req.body.currency}
+        })
+    
+        if (currency == null) {
+            res.status(400).send({message: "Currency inserted is not registered"});
+            return;
+        }
+        data["currency_id"] = currency.id;
+    }
+    
     var client = await prisma.client.update({where: {id: String(id)}, data: data})
     if (!client) {return res.status(500).send({message: 'Error in update client method.'});}
     res.status(204).send({message: 'Client updated succesfully!'})
