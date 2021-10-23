@@ -1,0 +1,266 @@
+{
+	"info": {
+		"_postman_id": "cc1ab80d-c883-4ccb-8114-524bf54db1ea",
+		"name": "API Xepelin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Invoices",
+			"item": [
+				{
+					"name": "Get Invoices",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/api/v1/invoices/121/9-11-2020/USD",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"api",
+								"v1",
+								"invoices",
+								"121",
+								"9-11-2020",
+								"USD"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create invoice",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"invoice_id\": 1,\n    \"vendor_id\": 121,\n    \"invoice_number\": \"P-0608\",\n    \"invoice_date\": \"10/14/2020\",\n    \"invoice_total\": 10200,\n    \"payment_total\": 10000,\n    \"credit_total\": 200,\n    \"bank_id\": 1000,\n    \"invoice_due_date\": \"10/24/2020\",\n    \"payment_date\": null,\n    \"currency\": \"CLP\"\n}"
+						},
+						"url": {
+							"raw": "localhost:3200/api/v1/invoices/create",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"api",
+								"v1",
+								"invoices",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Users Registration",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Watts\",\n    \"internal_code\": 12345678,\n    \"tax_id\": 12345,\n    \"currency\": \"CLP\",\n    \"max_api_calls\": 50,\n    \"banks\": [1000, 1001, 1002]\n\n}"
+						},
+						"url": {
+							"raw": "localhost:3200/api/v1/users/create",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"create"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Soprole",
+									"disabled": true
+								},
+								{
+									"key": "internal_code",
+									"value": "10003942",
+									"disabled": true
+								},
+								{
+									"key": "tax_id",
+									"value": "10432",
+									"disabled": true
+								},
+								{
+									"key": "currency",
+									"value": "CLP",
+									"disabled": true
+								},
+								{
+									"key": "max_api_calls",
+									"value": "50",
+									"disabled": true
+								},
+								{
+									"key": "banks",
+									"value": "[1000, 1001, 1002]",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Edit",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tax_id\": 12346,\n    \"currency\": \"CLP\"\n}"
+						},
+						"url": {
+							"raw": "localhost:3200/api/v1/users/51fa0364-b11d-4ee8-a536-997af0b58d31",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"51fa0364-b11d-4ee8-a536-997af0b58d31"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/api/v1/users/",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/api/v1/users/51fa0364-b11d-4ee8-a536-997af0b58d31",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"51fa0364-b11d-4ee8-a536-997af0b58d31"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Currency",
+			"item": [
+				{
+					"name": "Currency",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3200/api/v1/currencies/",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"api",
+								"v1",
+								"currencies",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Currency",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"EUR\"\n}"
+						},
+						"url": {
+							"raw": "localhost:3200/api/v1/currencies/create",
+							"host": [
+								"localhost"
+							],
+							"port": "3200",
+							"path": [
+								"api",
+								"v1",
+								"currencies",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

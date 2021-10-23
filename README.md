@@ -11,7 +11,7 @@ API desarrollada para proceso de onboarding en Xepelin
   nvm install 14.4
   sudo apt install npm
   ```
-* Instalar dependencias:
+* Installl dependencies:
   * `npm install`
 
 ## Database Setup (development)
@@ -63,12 +63,15 @@ CURRENCY_API_URL=https://free.currencyconverterapi.com/
 CURRENCY_API_TOKEN=fdpoisajfio
 ```
 
-### Run migrations
+## Run migrations
 ```sh
 npx prisma generate
 
 npx prisma migrate dev
 ```
+
+## Start Application
+To start de app run `npm start`
 
 
 ## Troubleshooter
