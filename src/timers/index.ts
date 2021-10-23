@@ -1,5 +1,6 @@
 import { fetchInvoices } from "./load-invoices";
 
 export function timers() {
-    setTimeout(fetchInvoices, 15000);
+    fetchInvoices();
+    setTimeout(fetchInvoices, 1000 * 60 * 60 * 24);
 }

@@ -1,11 +1,11 @@
 version: '3.3'
 services:
   postgres:
-    image: postgres:13
+    image: postgres>13
     restart: always
     environment:
       - POSTGRES_USER=xepelin
-      - POSTGRES_PASSWORD=api-project
+      - POSTGRES_PASSWORD=xepelin/api
     volumes:
       - postgres:/var/lib/postgresql/data
     ports:

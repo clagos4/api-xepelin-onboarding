@@ -6,7 +6,6 @@ const prisma = new PrismaClient();
 
 router.get('/:vendor?/:invoiceDate?/:currency?', async (req, res, next) => {
     const { vendor, invoiceDate, currency }: { [id: string] : String; } = req.params;
-    console.log(vendor, invoiceDate, currency)
     let params: any = {};
     if (vendor) params.vendor_id = parseInt(""+vendor);
     if (invoiceDate) params.invoice_date = { gt: new Date(""+invoiceDate) }
@@ -54,7 +53,7 @@ router.post('/create', async (req, res) => {
             currency_id: currency!.id,
         },
     });
-    res.status(201).send({message: 'Client registred successfully!'});
+    res.status(201).send({message: 'Invoice registred successfully!'});
 })
 
 

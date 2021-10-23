@@ -14,11 +14,11 @@ router.get('/', async (req, res) => {
 
 router.post('/create', async (req, res) => {
     const uuid = uuidv4();
-    const currency = await prisma.currency.findMany({
-        where: { id: req.body.currency_id}
+    const currency = await prisma.currency.findUnique({
+        where: { name: req.body.currency}
     })
 
-    if (currency.length == 0) {
+    if (currency == null) {
         res.status(400).send({message: "Currency inserted is not registered"});
         return;
     }
@@ -28,7 +28,7 @@ router.post('/create', async (req, res) => {
             name: req.body.name,
             internal_code: parseInt(req.body.internal_code),
             tax_id: parseInt(req.body.tax_id),
-            currency_id: parseInt(req.body.currency_id),
+            currency_id: currency.id,
             max_api_calls: parseInt(req.body.max_api_calls),
             id: uuid
         },
@@ -71,12 +71,10 @@ router.delete(`/:id`, async (req, res) => {
         const bankRelations = await prisma.bankClient.delete({
             where: { id: Number(id) },
         })
-        console.log(bankRelations)
     });
     const status = await prisma.client.delete({
         where: { id: String(id) },
     })
-    console.log(status)
     res.status(204).send({message: 'Client deleted succesfully!'})
 })
 

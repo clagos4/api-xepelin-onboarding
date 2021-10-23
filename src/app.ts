@@ -15,7 +15,7 @@ app.use(morgan('dev'));
 dotenv.config();
 
 // Set Timers
-//timers();
+timers();
 
 // Set routes
 app.use('/', routes);

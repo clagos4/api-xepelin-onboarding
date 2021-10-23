@@ -17,6 +17,9 @@ export function fetchInvoices() {
             data.forEach(async (elem) => {
                 if (await validateInput(elem)) {
                     try {
+                        const currency = await prisma.currency.findUnique({
+                            where: { name: elem[10] }
+                        })
                         await prisma.invoice.create({
                             data: {
                                 invoice_id: parseInt(""+elem[0]),
@@ -29,15 +32,15 @@ export function fetchInvoices() {
                                 bank_id: parseInt(""+elem[7]),
                                 invoice_due_date: new Date(""+elem[8]),
                                 payment_date: elem[9] == '' ? null : new Date(""+elem[9]),
-                                currency_id: parseInt(""+elem[10]),
+                                currency_id: currency!.id,
                             },
                         });
                     } catch (err) {
-                        //console.log(err);
+                        console.log(err);
                     }
                 }
             });
-            console.log("Elementos cargados!")
+            console.log('Invoices cargados de la base de datos!')
         });
     }).on('error', err => {
         console.log('Error: ', err.message);
